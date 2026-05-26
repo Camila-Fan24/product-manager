@@ -1,0 +1,17 @@
+{
+  "name": "techlab-products-cli",
+  "version": "1.0.0",
+  "description": "CLI de productos con Node.js",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "nodejs",
+    "cli",
+    "products"
+  ],
+  "author": "Camila Fan",
+  "license": "MIT"
+}
