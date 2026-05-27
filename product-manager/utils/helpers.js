@@ -1,8 +1,16 @@
-export const showMenu = () => {
-  console.log(`
-1 - Ver productos
-2 - Agregar producto
-3 - Buscar producto
-4 - Eliminar producto
+export const mostrarMenu = () => {
+    console.log(`
+========= CLI TECHLAB =========
+
+Comandos disponibles:
+
+GET products
+GET products/<id>
+
+POST products <title> <price> <category>
+
+DELETE products/<id>
+
+================================
 `);
 };

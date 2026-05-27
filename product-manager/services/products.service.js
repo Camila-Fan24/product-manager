@@ -1,33 +1,51 @@
-let products = [
-  {
-    id: 1,
-    name: 'Notebook Lenovo',
-    price: 950000
-  },
-  {
-    id: 2,
-    name: 'Mouse Gamer',
-    price: 25000
-  },
-  {
-    id: 3,
-    name: 'Monitor Samsung',
-    price: 320000
-  }
-];
+const BASE_URL = 'https://fakestoreapi.com/products';
 
-export const getProducts = () => {
-  return products;
+// Obtener todos los productos
+export const obtenerProductos = async () => {
+    const response = await fetch(BASE_URL);
+    const data = await response.json();
+
+    console.log(data);
 };
 
-export const addProduct = (product) => {
-  products.push(product);
+// Obtener producto por ID
+export const obtenerProductoPorId = async (id) => {
+    const response = await fetch(`${BASE_URL}/${id}`);
+    const data = await response.json();
+
+    console.log(data);
 };
 
-export const findProductById = (id) => {
-  return products.find(product => product.id === id);
+// Crear producto
+export const crearProducto = async (title, price, category) => {
+    const nuevoProducto = {
+        title,
+        price: Number(price),
+        category
+    };
+
+    const response = await fetch(BASE_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(nuevoProducto)
+    });
+
+    const data = await response.json();
+
+    console.log('Producto creado:');
+    console.log(data);
 };
 
-export const deleteProduct = (id) => {
-  products = products.filter(product => product.id !== id);
+// Eliminar producto
+export const eliminarProducto = async (id) => {
+    const response = await fetch(`${BASE_URL}/${id}`, {
+        method: 'DELETE'
+    });
+
+    const data = await response.json();
+
+    console.log('Producto eliminado:');
+    console.log(data);
 };

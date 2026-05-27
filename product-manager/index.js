@@ -1,36 +1,53 @@
 import {
-  getProducts,
-  addProduct,
-  deleteProduct,
-  findProductById
+    obtenerProductos,
+    obtenerProductoPorId,
+    crearProducto,
+    eliminarProducto
 } from './services/products.service.js';
 
-import { showMenu } from './utils/helpers.js';
+import { mostrarMenu } from './utils/helpers.js';
 
-console.log('=== TECHLAB PRODUCTS CLI ===');
+const [, , metodo, ruta, ...args] = process.argv;
 
-showMenu();
+mostrarMenu();
 
-// Mostrar productos
-console.log('\nLista de productos:');
-console.table(getProducts());
-// Agregar producto
-addProduct({
-  id: 4,
-  name: 'Teclado Mecánico',
-  price: 45000
-});
+try {
 
-console.log('\nProducto agregado correctamente');
-console.table(getProducts());
+    // GET products
+    if (metodo === 'GET' && ruta === 'products') {
+        await obtenerProductos();
+    }
 
-// Buscar producto
-const product = findProductById(2);
+    // GET products/5
+    else if (metodo === 'GET' && ruta.startsWith('products/')) {
 
-console.log('\nProducto encontrado:');
-console.log(product);
+        const id = ruta.split('/')[1];
 
-// Eliminar producto
-deleteProduct(1);
-console.log('\nProducto eliminado');
-console.table(getProducts());
+        await obtenerProductoPorId(id);
+    }
+
+    // POST products titulo precio categoria
+    else if (metodo === 'POST' && ruta === 'products') {
+
+        const [title, price, category] = args;
+
+        await crearProducto(title, price, category);
+    }
+
+    // DELETE products/7
+    else if (metodo === 'DELETE' && ruta.startsWith('products/')) {
+
+        const id = ruta.split('/')[1];
+
+        await eliminarProducto(id);
+    }
+
+    else {
+        console.log('Comando inválido');
+    }
+
+} catch (error) {
+
+    console.log('Error:', error.message);
+
+}
